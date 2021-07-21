@@ -7,3 +7,9 @@ Web tools such as HTML , CSS,  Ajax, JavaScript, jQuery
  
 # Database:
 Apache Server
+
+# To Run the Project: 
+
+1. install XAMPP the completely  Apache distribution which include the Apache Server, MySQL, PHP and PHPMyAdmin. 
+2. Import the DataBase into MySQ. 
+3. Copy the source code to Httdoc inside Apache Server. 
