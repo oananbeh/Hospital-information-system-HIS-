@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>jQuery UI Dialog - Modal form</title>
+	<link rel="stylesheet" href="themes/base/jquery.ui.all.css">
+	<script src="jquery-1.8.0.js"></script>
+	
+	<script src="jquery.ui.core.js"></script>
+	<script src="jquery.ui.widget.js"></script>
+	
+	<script src="jquery.ui.button.js"></script>
+	
+	<script src="jquery.ui.position.js"></script>
+	
+	<script src="jquery.ui.dialog.js"></script>
+	
+	<style>
+		body { font-size: 62.5%; }
+		label, input { display:block; }
+		input.text { margin-bottom:12px; width:95%; padding: .4em; }
+		fieldset { padding:0; border:0; margin-top:25px; }
+		h1 { font-size: 1.2em; margin: .6em 0; }
+		div#users-contain { width: 100%; margin: 20px 0; }
+		div#users-contain table { margin: 1em 0; border-collapse: collapse; width: 100%; }
+		div#users-contain table td, div#users-contain table th { border: 1px solid #eee; padding: .6em 10px; text-align: left; }
+		.ui-dialog .ui-state-error { padding: .3em; }
+		.validateTips { border: 1px solid transparent; padding: 0.3em; }
+	</style>
+	<script>
+
+	$(function() {
+
+		// a workaround for a flaw in the demo system (http://dev.jqueryui.com/ticket/4375), ignore!
+		$( "#dialog:ui-dialog" ).dialog( "destroy" );
+		
+		var name = $( "#name" ),
+			email = $( "#email" ),
+			password = $( "#password" ),
+			allFields = $( [] ).add( name ).add( email ).add( password ),
+			tips = $( ".validateTips" );
+
+        
+
+		
+		$( "#dialog-form" ).dialog({
+			autoOpen: false,
+			height: 300,
+			width: 350,
+			modal: true,
+			buttons: {
+				"Create an account": function() {
+	$.ajax({
+		type:"POST",url:"add.php",data:name,dataType:'json',cache:false,success: function a(ok)
+		{
+						var a="<select><option>EYES</option><option>Mout</option></select>";
+						var unit="<select><option>marham</option><option>adoll</option></select>";
+						var dosage="<select><option>5Gm</option><option>0.5Gm</option></select>";
+						var repet="Repet<select><option>1</option><option>2</option></select>";
+						var repetday="<select><option>dylay</option><option>monthly</option></select>";
+						var quanity="<select><option>56tub</option><option>15tub</option></select>";
+			           var number=1;
+			          
+            if(ok.length =!0)
+            {
+				$( "#users tbody" ).append( "<tr>" +
+					        "<td>"+number+"</td>"+
+					        "<td>"+unit+"</td>"+
+							"<td>" + ok['a'][0] + "</td>" + 
+							"<td>" + dosage + "</td>" + 
+							"<td>" + repet + repetday+"</td>" +
+							"<td>"+a+"</td>"+
+							"<td>"+quanity+"</td>"+
+						"</tr>" ); 
+            }
+            else
+            {
+            	alert("data not found");
+            }
+						
+
+
+		}
+		
+	});
+			$( this ).dialog( "close" );			
+				},
+				Cancel: function() {
+					$( this ).dialog( "close" );
+				}
+			},
+			close: function() {
+				allFields.val( "" ).removeClass( "ui-state-error" );
+			}
+		});
+
+
+		$( "#create-user" )
+			.button()
+			.click(function() {
+				$( "#dialog-form" ).dialog( "open" );
+			});
+
+	});
+	</script>
+</head>
+<body>
+
+<div class="demo">
+
+<div id="dialog-form" title="Create new user">
+	<p class="validateTips">All form fields are required.</p>
+
+	<form>
+	<fieldset>
+		<label for="name">Name</label>
+		<input type="text" name="name" id="name" class="text ui-widget-content ui-corner-all" />
+		<label for="email">Email</label>
+		<input type="text" name="email" id="email" value="" class="text ui-widget-content ui-corner-all" />
+		<label for="password">Password</label>
+		<input type="password" name="password" id="password" value="" class="text ui-widget-content ui-corner-all" />
+	</fieldset>
+	</form>
+</div>
+
+
+<div id="users-contain" class="ui-widget">
+	<h1>Existing Users:</h1>
+	<table id="users" class="ui-widget ui-widget-content">
+		<thead>
+			<tr class="ui-widget-header ">
+				<th>Number</th>
+				<th>وحدة</th>
+				<th>أسم الدواء</th>
+				<th>الجرعة</th>
+				<th>التكرار</th>
+				<th>الطريقة</th>
+				<th>الكمية</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				
+			</tr>
+		</tbody>
+	</table>
+</div>
+<button id="create-user">Create new user</button>
+
+</div><!-- End demo -->
+
+
+
+<div class="demo-description">
+<p>Use a modal dialog to require that the user enter data during a multi-step process.  Embed form markup in the content area, set the <code>modal</code> option to true, and specify primary and secondary user actions with the <code>buttons</code> option.</p>
+</div><!-- End demo-description -->
+
+</body>
+</html>
